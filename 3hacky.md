@@ -19,12 +19,12 @@ And this is where things are getting tricky, check the source for more informati
 
 [Source](src/test/scala/com/github/atais/HackySpec.scala) 
 
-## Pros:
+## Pros
  - it seems like it is working correctly, and to some extent it does
  
 ## Cons
  - hacky
  - may cause a lot of confusion on production
 
-## Extra sources:
+## Extra sources
  - [Should I use the final modifier when declaring case classes?](https://stackoverflow.com/questions/34561614)

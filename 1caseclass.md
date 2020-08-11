@@ -16,7 +16,7 @@ object EnumLike {
 
 [Source](src/test/scala/com/github/atais/CaseClassSpec.scala) 
 
-## Pros:
+## Pros
  - simple
  - works as expected also with pattern matching
  

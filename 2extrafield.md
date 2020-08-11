@@ -14,7 +14,7 @@ case class TestContainer(_v: String) {
 
 [Source](src/test/scala/com/github/atais/ExtraFieldSpec.scala) 
 
-## Pros:
+## Pros
  - 100% vanilla Scala `Enum` support
  
 ## Cons
@@ -22,7 +22,7 @@ case class TestContainer(_v: String) {
  - primitive field can't be `private` (Spark limitation)
  - overhead of creating extra objects
 
-## Source: 
+## Source
  - [SPARK-17248](https://issues.apache.org/jira/browse/SPARK-17248)
  - [Titanic Dataset](https://github.com/dongjinleekr/spark-dataset/blob/master/src/main/scala/com/github/dongjinleekr/spark/dataset/Titanic.scala)
 

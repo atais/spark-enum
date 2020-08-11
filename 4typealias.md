@@ -10,7 +10,7 @@ type EnumLike = String
 
 [Source](src/test/scala/com/github/atais/TypeSpec.scala) 
 
-## Pros:
+## Pros
  - fast & simple
  
 ## Cons
