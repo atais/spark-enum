@@ -10,7 +10,7 @@ Articles or SO posts you can find useful:
  - [Custom encoders](https://stackoverflow.com/a/39442829/1549135)
  - [Encode an ADT in Spark DataSet column](https://stackoverflow.com/a/41082540/1549135)
  
-# Approaches
+# What and how?
 
 Each approach is showcased with a test suite that compares two situations:
  - Regular Scala collection with created objects
@@ -21,8 +21,10 @@ The test is linked in each title.
 **Keep in mind that in some cases, `Spark` looses certain data during encoding/decoding process,
 which is always reflected in the assertions!**
 
- - [1. Case class wrapper](1caseclass.md) 
- - [2. Extra field with primitive column](2extrafield.md) 
- - [3. Fake case class parent](3hacky.md) 
- - [4. Type alias](4typealias.md) 
+# Approaches
+
+1. [Case class wrapper](1caseclass.md) 
+2. [Extra field with primitive column](2extrafield.md) 
+3. [Fake case class parent](3hacky.md) 
+4. [Type alias](4typealias.md) 
 
