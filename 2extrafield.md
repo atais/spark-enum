@@ -12,7 +12,7 @@ case class TestContainer(_v: String) {
 }
 ```
 
-[Source](src/test/scala/com.github.atais/ExtraFieldSpec.scala) 
+[Source](src/test/scala/com/github/atais/ExtraFieldSpec.scala) 
 
 ## Pros:
  - 100% vanilla Scala `Enum` support

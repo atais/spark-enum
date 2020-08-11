@@ -14,7 +14,7 @@ object EnumLike {
 }
 ```
 
-[Source](src/test/scala/com.github.atais/CaseClassSpec.scala) 
+[Source](src/test/scala/com/github/atais/CaseClassSpec.scala) 
 
 ## Pros:
  - simple

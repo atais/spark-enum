@@ -17,7 +17,7 @@ Notice, that it is not an `abstract class`. It works because *Spark*
  
 And this is where things are getting tricky, check the source for more information.
 
-[Source](src/test/scala/com.github.atais/HackySpec.scala) 
+[Source](src/test/scala/com/github/atais/HackySpec.scala) 
 
 ## Pros:
  - it seems like it is working correctly, and to some extent it does
