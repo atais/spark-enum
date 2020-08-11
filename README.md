@@ -1,4 +1,4 @@
-# Spark-enum
+# Approaches on Enums in Spark 2.x
 The project showcases approaches you can take on Spark missing `Enum` support. 
 
 The limitation is caused by lack of possibility to encode an `ADT` in `DataSet` column.
