@@ -1,12 +1,16 @@
 package com.github.atais
 
-import com.github.atais.TypeSpec._
+import com.github.atais.SealedCaseClassSpec._
+import com.github.atais.SealedCaseClassSpec.EnumLike._
 import com.holdenkarau.spark.testing.DatasetSuiteBase
 import org.scalatest.Assertion
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class TypeSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
+class SealedCaseClassSpec
+    extends AnyFlatSpec
+    with Matchers
+    with DatasetSuiteBase {
 
   import spark.implicits._
 
@@ -20,22 +24,22 @@ class TypeSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
 
   private val scenario: EnumLike => Assertion = {
     case v @ One =>
-      v shouldBe One
+      v.value shouldBe One.value
       v.getClass shouldBe One.getClass
       special(v) shouldBe 1
     case v @ Two =>
-      v shouldBe Two
+      v.value shouldBe Two.value
       v.getClass shouldBe Two.getClass
       special(v) shouldBe 2
     case v @ Three =>
-      v shouldBe Three
+      v.value shouldBe Three.value
       v.getClass shouldBe Three.getClass
       special(v) shouldBe 3
     case _ =>
       fail("we do not have other cases!")
   }
 
-  it should "propely pattern match & have correct class in raw example" in {
+  it should "propely pattern match in raw example" in {
     foos.map(_.v).foreach {
       scenario.apply
     }
@@ -56,19 +60,28 @@ class TypeSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
 
 }
 
-private[atais] object TypeSpec {
+object SealedCaseClassSpec {
 
-  type EnumLike = String
+  sealed case class EnumLike private (value: String)
 
-  final val One: EnumLike = "One"
-  final val Two: EnumLike = "Two"
-  final val Three: EnumLike = "Three"
+  object EnumLike {
+    final val One = new EnumLike("One")
+    final val Two = new EnumLike("Two")
+    final val Three = new EnumLike("Three")
 
-  def special(v: EnumLike): Int = v match {
-    case One   => 1
-    case Two   => 2
-    case Three => 3
-    case _     => ???
+    final val values: Seq[EnumLike] = Seq(One, Two, Three)
+
+    def apply(in: String): EnumLike =
+      values
+        .find(_.value == in)
+        .getOrElse(throw new RuntimeException(s"no value $in"))
+
+    def special(v: EnumLike): Int = v match {
+      case One   => 1
+      case Two   => 2
+      case Three => 3
+      case _     => ???
+    }
   }
 
   case class TestContainer(v: EnumLike)

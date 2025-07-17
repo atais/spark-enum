@@ -1,10 +1,11 @@
 package com.github.atais
 
-import com.github.atais.HackySpec.EnumLike._
 import com.github.atais.HackySpec._
+import com.github.atais.HackySpec.EnumLike._
 import com.holdenkarau.spark.testing.DatasetSuiteBase
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.Assertions
 
 class HackySpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
 
@@ -20,20 +21,20 @@ class HackySpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
 
   it should "propely pattern match & have correct class in raw example" in {
     foos.map(_.v).foreach {
-      case v@One =>
+      case v @ One =>
         v.value shouldBe One.value
         v.getClass shouldBe One.getClass
         v.special shouldBe One.special
-      case v@Two =>
+      case v @ Two =>
         v.value shouldBe Two.value
         v.getClass shouldBe Two.getClass
         v.special shouldBe Two.special
-      case v@Three =>
+      case v @ Three =>
         v.value shouldBe Three.value
         v.getClass shouldBe Three.getClass
         v.special shouldBe Three.special
       case _ =>
-        fail("we do not have other cases!")
+        Assertions.fail("we do not have other cases!")
     }
 
   }
@@ -41,8 +42,10 @@ class HackySpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
   it should "strangely pattern match in ds example" in {
     foos.toDS().show(false)
 
-    foos.toDS()
-      .collectAsList().asScala
+    foos
+      .toDS()
+      .collectAsList()
+      .asScala
       .map(_.v)
       .foreach { v =>
         assertThrows[NotImplementedError] {
@@ -50,30 +53,32 @@ class HackySpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
         }
       }
 
-    foos.toDS()
-      .collectAsList().asScala
+    foos
+      .toDS()
+      .collectAsList()
+      .asScala
       .map(_.v)
       .foreach {
-        case v@One =>
+        case v @ One =>
           v.value shouldBe One.value
           v.getClass shouldBe classOf[EnumLike]
           assertThrows[ClassCastException] {
             v.special
           }
-        case v@Two =>
+        case v @ Two =>
           v.value shouldBe Two.value
           v.getClass shouldBe classOf[EnumLike]
           assertThrows[ClassCastException] {
             v.special
           }
-        case v@Three =>
+        case v @ Three =>
           v.value shouldBe Three.value
           v.getClass shouldBe classOf[EnumLike]
           assertThrows[ClassCastException] {
             v.special
           }
         case _ =>
-          fail("we do not have other cases!")
+          Assertions.fail("we do not have other cases!")
       }
   }
 
@@ -93,12 +98,13 @@ private[atais] object HackySpec {
 
     override def hashCode(): Int = value.hashCode()
 
-    override def equals(obj: Any): Boolean = canEqual(obj) && obj.asInstanceOf[SparkEnum].value == value
+    override def equals(obj: Any): Boolean =
+      canEqual(obj) && obj.asInstanceOf[SparkEnum].value == value
 
     override def toString: String = value.toString
   }
 
-  sealed class EnumLike private(override val value: String) extends SparkEnum {
+  sealed class EnumLike private (override val value: String) extends SparkEnum {
     def special: Int = ???
   }
 
@@ -121,5 +127,3 @@ private[atais] object HackySpec {
   case class TestContainer(v: EnumLike)
 
 }
-
-

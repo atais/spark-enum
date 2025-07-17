@@ -1,7 +1,7 @@
 package com.github.atais
 
-import com.github.atais.CaseClassSpec.EnumLike._
 import com.github.atais.CaseClassSpec._
+import com.github.atais.CaseClassSpec.EnumLike._
 import com.holdenkarau.spark.testing.DatasetSuiteBase
 import org.scalatest.Assertion
 import org.scalatest.flatspec.AnyFlatSpec
@@ -20,15 +20,15 @@ class CaseClassSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
   )
 
   private val scenario: EnumLike => Assertion = {
-    case v@One =>
+    case v @ One =>
       v.value shouldBe One.value
       v.getClass shouldBe One.getClass
       special(v) shouldBe 1
-    case v@Two =>
+    case v @ Two =>
       v.value shouldBe Two.value
       v.getClass shouldBe Two.getClass
       special(v) shouldBe 2
-    case v@Three =>
+    case v @ Three =>
       v.value shouldBe Three.value
       v.getClass shouldBe Three.getClass
       special(v) shouldBe 3
@@ -45,8 +45,10 @@ class CaseClassSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
   it should "propely pattern match in ds example" in {
     foos.toDS().show(false)
 
-    foos.toDS()
-      .collectAsList().asScala
+    foos
+      .toDS()
+      .collectAsList()
+      .asScala
       .map(_.v)
       .foreach {
         scenario.apply
@@ -55,7 +57,7 @@ class CaseClassSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
 
 }
 
-private[atais] object CaseClassSpec {
+object CaseClassSpec {
 
   case class EnumLike(value: String)
 
@@ -66,14 +68,12 @@ private[atais] object CaseClassSpec {
   }
 
   def special(v: EnumLike): Int = v match {
-    case One => 1
-    case Two => 2
+    case One   => 1
+    case Two   => 2
     case Three => 3
-    case _ => ???
+    case _     => ???
   }
 
   case class TestContainer(v: EnumLike)
 
 }
-
-

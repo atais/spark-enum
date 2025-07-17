@@ -1,7 +1,7 @@
 package com.github.atais
 
-import com.github.atais.ExtraFieldSpec.ExampleEnum._
 import com.github.atais.ExtraFieldSpec._
+import com.github.atais.ExtraFieldSpec.ExampleEnum._
 import com.holdenkarau.spark.testing.DatasetSuiteBase
 import org.scalatest.Assertion
 import org.scalatest.flatspec.AnyFlatSpec
@@ -20,15 +20,15 @@ class ExtraFieldSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
   )
 
   private val scenario: ExampleEnum => Assertion = {
-    case v@One =>
+    case v @ One =>
       v.value shouldBe One.value
       v.getClass shouldBe One.getClass
       v.special() shouldBe One.special()
-    case v@Two =>
+    case v @ Two =>
       v.value shouldBe Two.value
       v.getClass shouldBe Two.getClass
       v.special() shouldBe Two.special()
-    case v@Three =>
+    case v @ Three =>
       v.value shouldBe Three.value
       v.getClass shouldBe Three.getClass
       v.special() shouldBe Three.special()
@@ -45,8 +45,10 @@ class ExtraFieldSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
   it should "propely pattern match in ds example" in {
     foos.toDS().show(false)
 
-    foos.toDS()
-      .collectAsList().asScala
+    foos
+      .toDS()
+      .collectAsList()
+      .asScala
       .map(_.v)
       .foreach {
         scenario.apply
@@ -57,7 +59,9 @@ class ExtraFieldSpec extends AnyFlatSpec with Matchers with DatasetSuiteBase {
 
 private[atais] object ExtraFieldSpec {
 
-  sealed abstract class ExampleEnum(val value: String) extends Product with Serializable {
+  sealed abstract class ExampleEnum(val value: String)
+      extends Product
+      with Serializable {
     def special(): Int
   }
 
@@ -81,10 +85,10 @@ private[atais] object ExtraFieldSpec {
 
     def apply(str: String): ExampleEnum = {
       str match {
-        case One.value => One
-        case Two.value => Two
+        case One.value   => One
+        case Two.value   => Two
         case Three.value => Three
-        case x => Unknown(x)
+        case x           => Unknown(x)
       }
     }
 

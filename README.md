@@ -23,8 +23,8 @@ which is always reflected in the assertions!**
 
 # Approaches
 
+0. [Sealed private case class wrapper](0caseclass.md)
 1. [Case class wrapper](1caseclass.md) 
 2. [Extra field with primitive column](2extrafield.md) 
 3. [Fake case class parent](3hacky.md) 
 4. [Type alias](4typealias.md) 
-
